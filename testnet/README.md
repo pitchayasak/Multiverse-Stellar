@@ -172,7 +172,19 @@ sudo systemctl start stellar-core
 ```
 ![](images/startup_scripts.png)
 
+---
+### How to find Root account secret key
+when stellar-core start to create new database will be log at path /etc/stellar.<br>
+Look at the stellar-core.*.log file for information.<br>
+The installation scripts will delete all log files on all stellar-core instance **except core-validater-1** for you to ssh into instance and get information and remove log file to secure Root account secre key.<br>
 
+Example:
+```sh
+cd /etc/stellar
+cat stellar-core.*.log
+```
+
+**Remove log contains Root account secret key when done**
 
 
 ---
