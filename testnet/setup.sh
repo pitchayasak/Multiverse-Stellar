@@ -47,3 +47,5 @@ sed -i 's/<!DEPLOYMENT_SCRIPTS>/'"$DEPLOYMENT_SCRIPTS"'/g' template/gce-core-val
 sed -i 's/<!MACHINE_TYPE>/'"$MACHINE_TYPE"'/g' template/gce-core-validator.yaml
 
 gsutil cp scripts/core-validator.cfg gs://$DEPLOYMENT_SCRIPTS
+
+gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
