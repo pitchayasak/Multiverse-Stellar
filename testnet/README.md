@@ -1,4 +1,4 @@
-# Install `Testnet` - Private Stellar Network
+# Install Private Stellar Network on Google Cloud
 
 This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Validator with 3 nodes. The configruation including installation local PostgreSQL database instance on each nodes.
 
@@ -50,31 +50,31 @@ Check Cloud Storage bucket already have allow Service accounts to access.
 
 #### 5. Edit Stellar Network parameter
 
-**Google Cloud Project name**
+\#Google Cloud Project name
 GCP_PROJECT_NAME="myprivate-testnet"     << your GCP project name
 
-**Google Cloud service account that allow to access GCS buckets**
+\#Google Cloud service account that allow to access GCS buckets
 GCE_SERVICE_ACCOUNT=""        << use from step 1.
 
-**Google Cloud Network name will be create during setup**
+\#Google Cloud Network name will be create during setup
 GCP_NETWORK_NAME="testnet-net-1"      << your desire GCP network name 
 
-**GCS Bucket name of history archive to keep history data of stellar network**
+\#GCS Bucket name of history archive to keep history data of stellar network
 HISTORY_ARCHIVE="testnet-history-archives"    << use from step 2.
 
-**GCS Bucket name of deployments script**
+\#GCS Bucket name of deployments script
 DEPLOYMENT_SCRIPTS="testnet-deployment" << use from step 3.
 
-**VM name to display for each instance**
+\#VM name to display for each instance
 CORE_VAL_NAME_PREFIX="core-validator"
 
-**Your Stellar NETWORK PASSPHRASE**
+\#Your Stellar NETWORK PASSPHRASE
 STELLAR_NETWORK_PASSPHRASE="Oasis-Testnet.March-2018"
 
-**Specific machine size and capacity**
+\#Specific machine size and capacity
 MACHINE_TYPE="n1-standard-1"
 
-**PSQL database information on every nodes**
+\#PSQL database information on every nodes
 (I use same info for all instance.)
 PSQL_DBNAME="core"
 PSQL_USERNAME="xxxx"
@@ -91,14 +91,14 @@ CORE_ZONE_3="asia-east1-c"
 
 **CORE_VALIDATOR_KEY** is public/private for your nodes. Nodes shouldn’t share keys. You should carefully `secure your private key`. If it is compromised, someone can send false messages to the network and those messages will look like they came from you.
 
-Generate a key pair like this:
-**$ stellar-core --genseed**
+Generate a key pair like this:<br>
+**$ stellar-core --genseed**<br>
 the output will look like
 ```
 Secret seed: SBAAOHEU4WSWX6GBZ3VOXEGQGWRBJ72ZN3B3MFAJZWXRYGDIWHQO37SY
 Public: GDMTUTQRCP6L3JQKX3OOKYIGZC6LG2O6K2BSUCI6WNGLL4XXCIB3OK2P
 ```
-<font color=red>Please update to your nodes private key if possible.</font>
+Please update to your nodes private key if possible.
 
 #### 6. run setup scripts
 ```sh
