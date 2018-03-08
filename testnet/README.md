@@ -1,23 +1,23 @@
 # Install `Testnet` - Private Stellar Network
 
-This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Validator 3 nodes. The configruation including installation local PostgreSQL database instance on each nodes.
+This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Validator with 3 nodes. The configruation including installation local PostgreSQL database instance on each nodes.
 
 Stellar-core and PostgreSQL are all running in the same GCE on differencr zone.
 
-**Ref:**
-[Stellar Docs](https://www.stellar.org/developers/stellar-core/software/admin.html)
-[stellar-installation-packate](https://github.com/stellar/packages#sdf---packages)
-[stellar-archivist](https://github.com/stellar/go/tree/master/tools/stellar-archivist)
+**Ref:**<br>
+[Stellar Docs](https://www.stellar.org/developers/stellar-core/software/admin.html)<br>
+[stellar-installation-packate](https://github.com/stellar/packages#sdf---packages)<br>
+[stellar-archivist](https://github.com/stellar/go/tree/master/tools/stellar-archivist)<br>
 
 ### Cost
 The template creates a number of resources but the majority of them do not attract charges. You will be billed for the following resources:
 * A GCE instance for every nodes.
 * Cloud Storage capacity
-*
+
 Disclaimer: While we attempt to provide useful and up to date information, you are responsible for your own GCP account and the resources that you are charged for. Always be vigilant about doubling checking to ensure that the resources used are what your expect. 
 
 ### Template
-The template .yaml and .jinja in the template foldes, so will be edit your parameter before running.
+The template files is .yaml and .jinja in the template folders, you will be edit parameter before running.
 
 ---
 ### Installation
@@ -45,35 +45,36 @@ Create bucket with storage class as "Regional"
 #### 4. Add permission access to Cloud Storage bucket
 ![](images/verify_1.png)
 ![](images/verify_2.png)
+<br>
 Check Cloud Storage bucket already have allow Service accounts to access.
 
 #### 5. Edit Stellar Network parameter
 
-###### Google Cloud Project name
+**Google Cloud Project name**
 GCP_PROJECT_NAME="myprivate-testnet"     << your GCP project name
 
-###### Google Cloud service account that allow to access GCS buckets
+**Google Cloud service account that allow to access GCS buckets**
 GCE_SERVICE_ACCOUNT=""        << use from step 1.
 
-###### Google Cloud Network name will be create during setup
+**Google Cloud Network name will be create during setup**
 GCP_NETWORK_NAME="testnet-net-1"      << your desire GCP network name 
 
-###### GCS Bucket name of history archive to keep history data of stellar network
+**GCS Bucket name of history archive to keep history data of stellar network**
 HISTORY_ARCHIVE="testnet-history-archives"    << use from step 2.
 
-###### GCS Bucket name of deployments script
+**GCS Bucket name of deployments script**
 DEPLOYMENT_SCRIPTS="testnet-deployment" << use from step 3.
 
-###### VM name to display for each instance
+**VM name to display for each instance**
 CORE_VAL_NAME_PREFIX="core-validator"
 
-###### Your Stellar NETWORK PASSPHRASE
+**Your Stellar NETWORK PASSPHRASE**
 STELLAR_NETWORK_PASSPHRASE="Oasis-Testnet.March-2018"
 
-###### Specific machine size and capacity
+**Specific machine size and capacity**
 MACHINE_TYPE="n1-standard-1"
 
-###### PSQL database information on every nodes
+**PSQL database information on every nodes**
 (I use same info for all instance.)
 PSQL_DBNAME="core"
 PSQL_USERNAME="xxxx"
@@ -88,16 +89,16 @@ CORE_ZONE_2="asia-southeast1-b"
 CORE_VALIDATOR_KEY_3="SDGTXMWIJAIBTTLDYVE5VGO3QTQ3JWDOMJRLCNTIEIOMQ2HY32QGS7BM"
 CORE_ZONE_3="asia-east1-c"
 
-**CORE_VALIDATOR_KEY** is public/private for your nodes. Nodes shouldn’t share keys. You should carefully *secure your private key*. If it is compromised, someone can send false messages to the network and those messages will look like they came from you.
+**CORE_VALIDATOR_KEY** is public/private for your nodes. Nodes shouldn’t share keys. You should carefully `secure your private key`. If it is compromised, someone can send false messages to the network and those messages will look like they came from you.
 
 Generate a key pair like this:
-###### $ stellar-core --genseed
+**$ stellar-core --genseed**
 the output will look like
 ```
 Secret seed: SBAAOHEU4WSWX6GBZ3VOXEGQGWRBJ72ZN3B3MFAJZWXRYGDIWHQO37SY
 Public: GDMTUTQRCP6L3JQKX3OOKYIGZC6LG2O6K2BSUCI6WNGLL4XXCIB3OK2P
 ```
-`Please update to your nodes private key if possible.`
+<font color=red>Please update to your nodes private key if possible.</font>
 
 #### 6. run setup scripts
 ```sh
@@ -143,12 +144,12 @@ state must be **Synced!**
 ```sh
 $ sudo systemctl status stellar-core
 ```
-!{}(images/service_status.png)
+![](images/service_status.png)
 
 #### 2. Edit startup scripts of all GCE instance 
 Default startup scripts are install Stellar Network software and related.
-`You need to edit Custom metadata of GCE instance to prevent RESET database history and archive history.`
-`Most Stellar-core failed is services start before PostgreSQL database ready.`
+<font color=red>You need to edit Custom metadata of GCE instance to prevent RESET database history and archive history.<br>
+Most Stellar-core failed is services start before PostgreSQL database ready.</font><br>
 You can see detail in /var/log/syslog for information of start service failed.
 Manual workaround by restart stellar-core services when database ready.
 The options to increase wait time longer than 60s for database ready can be update in startup scripts.
@@ -166,6 +167,8 @@ sleep 60s
 sudo systemctl start stellar-core
 ```
 ![](images/startup_scripts.png)
+
+
 
 
 ---
