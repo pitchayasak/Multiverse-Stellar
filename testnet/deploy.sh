@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# gcloud deployment-manager deployments create testnet-network --config src/network.yaml
+gcloud deployment-manager deployments create oasis-network --config template/network.yaml --project oasis-testnet
 
-# gcloud deployment-manager deployments create core-validator --config src/gce-core-validator.yaml
+sleep 3s
+
+gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project oasis-testnet
 
 
-# Not complete yet
-# gcloud deployment-manager deployments create core-horizon-ingest --config gce-core-horizon.yaml

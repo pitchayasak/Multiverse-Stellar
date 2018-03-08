@@ -4,7 +4,7 @@
 GCP_PROJECT_NAME="oasis-testnet"
 
 # Google Cloud service account that allow to access GCS buckets
-GCE_SERVICE_ACCOUNT=""
+GCE_SERVICE_ACCOUNT="history-archive@oasis-testnet.iam.gserviceaccount.com"
 
 # Google Cloud Network name will be create during setup
 GCP_NETWORK_NAME="oasis-net-1"

@@ -20,6 +20,7 @@ resources:
   type: gce-core-validator.jinja
   properties:
     gcp-project: oasis-testnet
+    service-account: history-archive@oasis-testnet.iam.gserviceaccount.com
     count: 3 
     namePrefix: core-validator
     stellar-network-name : Oasis-Testnet.March-2018

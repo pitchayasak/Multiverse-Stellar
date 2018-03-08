@@ -1,0 +1,9 @@
+#!/bin/bash
+
+gcloud deployment-manager deployments create oasis-network --config template/network.yaml --project <!GCP_PROJECT_NAME>
+
+sleep 3s
+
+gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project <!GCP_PROJECT_NAME>
+
+

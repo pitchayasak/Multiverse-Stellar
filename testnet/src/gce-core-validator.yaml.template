@@ -20,6 +20,7 @@ resources:
   type: gce-core-validator.jinja
   properties:
     gcp-project: <!GCP_PROJECT_NAME>
+    service-account: <!GCE_SERVICE_ACCOUNT>
     count: 3 
     namePrefix: <!CORE_VAL_NAME_PREFIX>
     stellar-network-name : <!STELLAR_NETWORK_PASSPHRASE>
