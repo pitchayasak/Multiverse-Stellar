@@ -1,0 +1,40 @@
+# Copyright 2016 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+imports:
+- path: gce-core-validator.jinja
+
+resources:
+- name: gce-core-validator-setup
+  type: gce-core-validator.jinja
+  properties:
+    gcp-project: <!GCP_PROJECT_NAME>
+    count: 3 
+    namePrefix: <!CORE_VAL_NAME_PREFIX>
+    stellar-network-name : <!STELLAR_NETWORK_PASSPHRASE>
+    core-validator-key-1 : <!CORE_VALIDATOR_KEY_1>
+    core-validator-key-2 : <!CORE_VALIDATOR_KEY_2>
+    core-validator-key-3 : <!CORE_VALIDATOR_KEY_3>
+    core-zone-1 : <!CORE_ZONE_1>
+    core-zone-2 : <!CORE_ZONE_2>
+    core-zone-3 : <!CORE_ZONE_3>
+    psql-dbname : <!PSQL_DBNAME>
+    psql-username : <!PSQL_USERNAME>
+    psql-password : <!PSQL_PASSWORD>
+    history-archive : <!HISTORY_ARCHIVE>
+    gcs-deployment-buckets : <!DEPLOYMENT_SCRIPTS>
+    machineType: <!MACHINE_TYPE>
+    image : https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20180126
+    hasExternalIp: false
+    gcp-network : https://www.googleapis.com/compute/v1/projects/<!GCP_PROJECT_NAME>/global/networks/<!GCP_NETWORK_NAME>

@@ -1,0 +1,40 @@
+# Copyright 2016 Google Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+imports:
+- path: gce-core-validator.jinja
+
+resources:
+- name: gce-core-validator-setup
+  type: gce-core-validator.jinja
+  properties:
+    gcp-project: oasis-testnet
+    count: 3 
+    namePrefix: core-validator
+    stellar-network-name : Oasis-Testnet.March-2018
+    core-validator-key-1 : SD5QQI2M3UBXBADMAJELA26L6OTGF3K2RWSEYZIDUAZHKV23DVRBALD6
+    core-validator-key-2 : SAVPGGRFIVG5LZXDHRHXVNNWFUIDOUZQAHOG3T6OELR2AETSNEPIJRA4
+    core-validator-key-3 : SDGTXMWIJAIBTTLDYVE5VGO3QTQ3JWDOMJRLCNTIEIOMQ2HY32QGS7BM
+    core-zone-1 : asia-southeast1-a
+    core-zone-2 : asia-southeast1-b
+    core-zone-3 : asia-east1-c
+    psql-dbname : core
+    psql-username : cryptoeng
+    psql-password : dbp!2018#Sertis
+    history-archive : oasis-testnet-history-archives
+    gcs-deployment-buckets : oasis-testnet-deployment
+    machineType: n1-standard-1
+    image : https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20180126
+    hasExternalIp: false
+    gcp-network : https://www.googleapis.com/compute/v1/projects/oasis-testnet/global/networks/oasis-net-1

@@ -1,0 +1,68 @@
+resources:
+{% for index in range(1, properties['count'] + 1) %}
+{% set NAME_PREFIX = properties['namePrefix'] + '-' + index|string %}
+- name: {{ NAME_PREFIX }}
+  type: compute.v1.instance
+  properties:
+    tags:
+      fingerprint: ARl554Lh7GU=
+      items:
+      - testnet-core
+    zone: {{ properties['core-zone-'+index|string] }}
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ properties['gcp-project']}}/zones/{{ properties['core-zone-'+index|string] }}/machineTypes/{{ properties['machineType'] }}
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        diskName: {{ NAME_PREFIX }}-disk
+        sourceImage: {{ properties['image'] }}
+    networkInterfaces:
+    - network: {{ properties['gcp-network'] }}
+      # Access Config required to give the instance a public IP address
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+    serviceAccounts:
+    - email: {{ properties['service-account'] }}
+      scopes:
+        - https://www.googleapis.com/auth/devstorage.read_write
+    metadata:
+      items:
+      - key: startup-script
+        value: |
+          #!/bin/bash
+          wget -qO - https://apt.stellar.org/SDF.asc | sudo apt-key add -
+          echo "deb https://apt.stellar.org/public stable/" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          sudo apt-get update -y && sudo apt-get install  -y stellar-core
+          sudo mkdir /opt/stellar
+          sudo chmod 777 -R /opt/stellar
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql postgresql-contrib
+          sleep 3
+          cd /etc/stellar
+          sudo gsutil cp gs://{{ properties['gcs-deployment-buckets'] }}/* /tmp
+          echo "ALTER USER {{ properties['psql-username'] }} WITH PASSWORD '{{ properties['psql-password'] }}';" >> /tmp/core-newdb.sql
+          echo "grant all privileges on database {{ properties['psql-dbname'] }} to {{ properties['psql-username'] }};" >> /tmp/core-newdb.sql
+          sudo -i -u postgres bash -c 'createdb {{ properties['psql-dbname'] }} && createuser {{ properties['psql-username'] }} && psql {{ properties['psql-dbname'] }} -f /tmp/core-newdb.sql'
+          sudo cp /tmp/core-validator.cfg /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!HISTORY_ARCHIVE>/{{ properties['history-archive'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!NODE_SEED>/{{ properties['core-validator-key-'+index|string] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
+          cd /etc/stellar
+          sudo stellar-core --newdb --forcescp
+          sudo chown -R stellar:stellar /opt/stellar
+          {% if index == 1 %}
+          sudo stellar-core --newhist gcloud
+          {% endif %}
+          sudo systemctl start stellar-core
+          sudo rm -rf /tmp/core-validator*.cfg
+          sudo rm -rf /tmp/core-newdb.sql
+          {% if index > 1 %}
+          sudo rm -rf /etc/stellar/*.log
+          {% endif %}
+{% endfor %}
