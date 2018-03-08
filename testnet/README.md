@@ -183,8 +183,14 @@ Example:
 cd /etc/stellar
 cat stellar-core.*.log
 ```
+![](images/root_secret.png)
 
 **Remove log contains Root account secret key when done**
 
+
+---
+## Notes<br>
+* Documents to install Stellar-Core + Horizon to connect to Private Stellar Network will coming soon<br>
+* If you have any question please send email to **pitchayasak.s@gmail@com**
 
 ---
