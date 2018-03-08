@@ -1,6 +1,6 @@
 # Install Private Stellar Network on Google Cloud
 
-This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Validator with 3 nodes. The configruation including installation local PostgreSQL database instance on each nodes.
+This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Validator with 3 nodes. The configruation including install local PostgreSQL database instance on each nodes.
 
 Stellar-core and PostgreSQL are all running in the same GCE on difference zone.
 
@@ -185,7 +185,7 @@ cat stellar-core.*.log
 ```
 ![](images/root_secret.png)
 
-**Remove log contains Root account secret key when done**
+**Remove log contains Root account secret key when done.**
 
 
 ---
