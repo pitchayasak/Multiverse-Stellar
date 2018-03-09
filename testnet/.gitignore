@@ -1,1 +1,5 @@
 .README.md.swp
+deploy.sh
+
+# Except this file
+!.gitignore
