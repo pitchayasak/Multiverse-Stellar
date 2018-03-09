@@ -27,6 +27,7 @@ STELLAR_NETWORK_PASSPHRASE="Testnet.March-2018"
 # Specific machine size and capacity
 MACHINE_TYPE="n1-standard-1"
 
+# Node seed must be replace with your secret keys
 CORE_VALIDATOR_KEY_1="SD5QQI2M3UBXBADMAJELA26L6OTGF3K2RWSEYZIDUAZHKV23DVRBALD6"
 CORE_VALIDATOR_PUBKEY_1="GDJEPYTVQ2YZO7C3RKIY255TSGCRMEAML3FOSOUS5AO6BRPVJSQKPREK"
 CORE_ZONE_1="asia-southeast1-a"
@@ -41,7 +42,7 @@ CORE_ZONE_3="asia-east1-c"
 
 # PSQL database information on every nodes
 PSQL_DBNAME="core"
-PSQL_USERNAME="cryptoeng"
+PSQL_USERNAME="testnetadmin"
 PSQL_PASSWORD=""
 
 # ======================================================================================
@@ -57,6 +58,8 @@ CH_MACHINE_TYPE="n1-standard-1"
 
 CH_PSQL_CORE_DBNAME="core"
 CH_PSQL_HORIZON_DBNAME="horizon"
-CH_PSQL_USERNAME="cryptoeng"
+CH_PSQL_USERNAME="testnetadmin"
 CH_PSQL_PASSWORD=""
 
+CH_GCE_SERVICE_ACCOUNT=""
+CLOUD_SQL_INSTANCE=""

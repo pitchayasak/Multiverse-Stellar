@@ -10,7 +10,7 @@ Stellar-core and PostgreSQL are all running in the same GCE on difference zone.
 
 **Ref:**<br>
 [Stellar Docs](https://www.stellar.org/developers/stellar-core/software/admin.html)<br>
-[stellar-installation-packate](https://github.com/stellar/packages#sdf---packages)<br>
+[stellar-installation-package](https://github.com/stellar/packages#sdf---packages)<br>
 [stellar-archivist](https://github.com/stellar/go/tree/master/tools/stellar-archivist)<br>
 
 ### Cost

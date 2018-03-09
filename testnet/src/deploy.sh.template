@@ -6,4 +6,6 @@ sleep 3s
 
 gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project <!GCP_PROJECT_NAME>
 
+sleep 3s
 
+gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project <!GCP_PROJECT_NAME>

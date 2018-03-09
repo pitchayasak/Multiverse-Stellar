@@ -9,7 +9,7 @@ resources:
       - testnet-core
       - testnet-horizon
     zone: {{ properties['core-horizon-z-1'] }}
-    machineType: https://www.googleapis.com/compute/v1/projects/{{ properties['GCP_PROJECT_NAME'] }}/zones/{{ properties['core-horizon-z-1'] }}/machineTypes/{{ properties['machineType'] }}
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ properties['gcp-project'] }}/zones/{{ properties['core-horizon-z-1'] }}/machineTypes/{{ properties['machineType'] }}
     disks:
     - deviceName: boot
       type: PERSISTENT
@@ -27,7 +27,7 @@ resources:
     serviceAccounts:
     - email: {{ properties['service-account'] }}
       scopes:
-        - https://www.googleapis.com/auth/devstorage.read_write
+        - https://www.googleapis.com/auth/devstorage.read_only
     metadata:
       items:
       - key: startup-script
@@ -46,17 +46,17 @@ resources:
           sudo chmod +x cloud_sql_proxy
           cd /etc/stellar
           sudo gsutil cp gs://{{ properties['gcs-deployment-buckets'] }}/* /tmp
-          sudo mv /tmp/dbp-testnet.json /opt/.dbp-testnet.json
-          sudo cp /tmp/core-horizon.cfg /etc/stellar/stellar-core.cfg
+          sudo mv /tmp/cloudsql.json /opt/.cloudsql.json
+          sudo cp /tmp/core-watcher.cfg /etc/stellar/stellar-core.cfg
           sudo cp /tmp/stellar-horizon-ingest.cfg /etc/default/stellar-horizon
           sudo sed -i 's/<!HISTORY_ARCHIVE>/{{ properties['history-archive'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/stellar/stellar-core.cfg
-          sudo sed -i 's/<!PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/stellar/stellar-core.cfg
-          sudo sed -i 's/<!PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
-          sudo sed -i 's/<!PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/default/stellar-horizon
-          sudo sed -i 's/<!PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/default/stellar-horizon
+          sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/default/stellar-horizon
+          sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/default/stellar-horizon
           sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
-          sudo /opt/cloud_sql_proxy -instances=dbp-testnet:asia-east1:dbp-testnet-psql=tcp:5432 -credential_file=/opt/.dbp-testnet.json &
+          sudo /opt/cloud_sql_proxy -instances=<!CLOUD_SQL_INSTANCE>=tcp:5432 -credential_file=/opt/.cloudsql.json &
           cd /etc/stellar
           sudo stellar-core --newdb --forcescp
           sudo chown -R stellar:stellar /opt/stellar          
