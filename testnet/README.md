@@ -49,6 +49,11 @@ Create bucket with storage class as "Regional"
 Check Cloud Storage bucket already have allow Service accounts to access.
 
 #### 5. Edit Stellar Network parameter
+```sh
+$ cp config.template config
+```
+
+Edit config file with your parameters.
 
 \#Google Cloud Project name<br>
 GCP_PROJECT_NAME="myprivate-testnet"     << your GCP project name

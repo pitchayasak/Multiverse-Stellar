@@ -1,5 +1,5 @@
 .README.md.swp
 deploy.sh
-
+config
 # Except this file
 !.gitignore
