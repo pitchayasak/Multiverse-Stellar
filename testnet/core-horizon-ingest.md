@@ -72,7 +72,7 @@ Click "CREATE SERVICE ACCOUNT"
 
 ![](images/servicea_ccount_5.png)<br>
 Service account ID will be use in config.ini as **CH_GCE_SERVICE_ACCOUNT**<br>
-Put the **Json private key** generate from this step to ***src** folder and rename file to cloudsql.json
+Put the **Json private key** generate from this step to **src** folder and rename file to cloudsql.json
 
 <font color="red">Check new service account are member of Storage Object Viewer of <b>GCS bucket</b></font>
 
@@ -126,8 +126,6 @@ Comment all line except core-horizon deployment in file deploy.sh before run scr
 
 ![](images/deploy_finish_4.png)
 
-Deploy log should be show detail of Network. Firewall and GCE instance of Stellar-Core validator.
-
 ![](images/deploy_finish_5.png)
 
 ![](images/deploy_finish_6.png)
@@ -157,11 +155,8 @@ $ sudo systemctl status stellar-core
 
 #### 2. Edit startup scripts of all GCE instance 
 Default startup scripts are install Stellar Network software and related.<br>
-`You need to edit Custom metadata of GCE instance to prevent RESET database history and archive history.<br>
-Most Stellar-core failed is services start before PostgreSQL database ready.`<br>
+`You need to edit Custom metadata of GCE instance to prevent RESET database history<br>
 You can see detail in /var/log/syslog for information of start service failed.<br>
-Manual workaround by restart stellar-core services when database ready.<br>
-The options to increase wait time longer than 60s for database ready can be update in startup scripts.
 
 ```sh
 #!/bin/bash
