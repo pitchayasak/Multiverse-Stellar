@@ -4,6 +4,10 @@ This is CLOUD DEPLOYMENT MANAGER template for create and running Stellar Core Va
 
 Stellar-core and PostgreSQL are all running in the same GCE on difference zone.
 
+**Installation documents**
+1. [Install Stellar Core Validator](#core-validator)
+2. [Install Stellar Core watcher and Horizon](core-horizon-ingest.md)
+
 **Ref:**<br>
 [Stellar Docs](https://www.stellar.org/developers/stellar-core/software/admin.html)<br>
 [stellar-installation-packate](https://github.com/stellar/packages#sdf---packages)<br>
@@ -20,7 +24,7 @@ Disclaimer: While we attempt to provide useful and up to date information, you a
 The template files is .yaml and .jinja in the template folders, you will be edit parameter before running.
 
 ---
-### Installation
+### <a id="core-validator"></a>Install Stellar Core Validator
 Aside from having an Google Cloud account, You must create empty project first.
 
 #### 1. Create Service accounts with permission to access to Google Cloud Storage
@@ -192,10 +196,9 @@ cat stellar-core.*.log
 
 **Remove log contains Root account secret key when done.**
 
-
 ---
 ## Notes<br>
-* Documents to install Stellar-Core + Horizon to connect to Private Stellar Network will coming soon<br>
 * If you have any question please send email to **pitchayasak.s@gmail.com**
 
 ---
+
