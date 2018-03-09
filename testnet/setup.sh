@@ -2,7 +2,8 @@
 
 . config.ini
 
-rm template/*
+rm -f template/*
+rm -f scripts/*
 rm -f deploy.sh
 
 cp src/network.jinja.template template/network.jinja

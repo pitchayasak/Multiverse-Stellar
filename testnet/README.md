@@ -50,7 +50,7 @@ Check Cloud Storage bucket already have allow Service accounts to access.
 
 #### 5. Edit Stellar Network parameter
 ```sh
-$ cp config.template config
+$ cp config.ini.template config.ini
 ```
 
 Edit config file with your parameters.
