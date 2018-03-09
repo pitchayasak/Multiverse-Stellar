@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. config
+. config.ini
 
 rm template/*
 rm -f deploy.sh
