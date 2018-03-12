@@ -1,7 +1,7 @@
 ## /etc/default/stellar-horizon
 
-DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/horizon"
-STELLAR_CORE_DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/core"
+DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/horizon?sslmode=disable"
+STELLAR_CORE_DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/core?sslmode=disable"
 STELLAR_CORE_URL="http://127.0.0.1:11626"
 FRIENDBOT_SECRET=
 PORT=8000
