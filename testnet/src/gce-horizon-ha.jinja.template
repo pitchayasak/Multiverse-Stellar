@@ -1,0 +1,66 @@
+resources:
+{% set NAME_PREFIX = properties['namePrefix']%}
+- name: {{ NAME_PREFIX }}
+  type: compute.v1.instance
+  properties:
+    tags:
+      fingerprint: ARl554Lh7GU=
+      items:
+      - testnet-core
+      - testnet-horizon
+    zone: {{ properties['core-horizon-z-1'] }}
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ properties['gcp-project'] }}/zones/{{ properties['core-horizon-z-1'] }}/machineTypes/{{ properties['machineType'] }}
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        diskName: {{ NAME_PREFIX }}-disk
+        sourceImage: {{ properties['image'] }}
+    networkInterfaces:
+    - network: {{ properties['gcp-network'] }}
+      # Access Config required to give the instance a public IP address
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+    serviceAccounts:
+    - email: {{ properties['service-account'] }}
+      scopes:
+        - https://www.googleapis.com/auth/devstorage.read_only
+    metadata:
+      items:
+      - key: startup-script
+        value: |
+          #!/bin/bash
+          wget -qO - https://apt.stellar.org/SDF.asc | sudo apt-key add -
+          echo "deb https://apt.stellar.org/public stable/" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          sudo apt-get update -y && sudo apt-get install -y stellar-horizon
+          sudo mkdir /opt/stellar
+          sudo chmod 777 -R /opt/stellar
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql-client
+          cd /opt
+          sudo wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+          sudo chmod +x cloud_sql_proxy
+          sudo gsutil -m cp gs://{{ properties['gcs-deployment-buckets'] }}/* /tmp
+          sudo mv /tmp/cloudsql.json /opt/.cloudsql.json
+          sudo mkdir -p /etc/stellar
+          sudo cp /tmp/core-watcher.cfg /etc/stellar/stellar-core.cfg
+          sudo cp /tmp/stellar-horizon-ha.cfg /etc/default/stellar-horizon
+          sudo sed -i 's/<!HISTORY_ARCHIVE>/{{ properties['history-archive'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
+          sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/default/stellar-horizon
+          sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/default/stellar-horizon
+          sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
+          sudo /opt/cloud_sql_proxy -instances=<!CLOUD_SQL_INSTANCE>=tcp:5432 -credential_file=/opt/.cloudsql.json &
+          sudo chown -R stellar:stellar /opt/stellar          
+          export DATABASE_URL="postgres://{{ properties['psql-username'] }}:{{ properties['psql-password'] }}@localhost/horizon?sslmode=disable"
+          sudo systemctl start stellar-horizon
+          sudo rm -rf /tmp/core-*.cfg
+          sudo rm -rf /tmp/core-newdb.sql
+          sudo rm -rf /etc/stellar/*.log
+
+

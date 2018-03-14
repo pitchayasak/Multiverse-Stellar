@@ -1,0 +1,13 @@
+## /etc/default/stellar-horizon
+
+DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/horizon?sslmode=disable"
+STELLAR_CORE_DATABASE_URL="postgres://<!CH_PSQL_USERNAME>:<!CH_PSQL_PASSWORD>@localhost/core?sslmode=disable"
+STELLAR_CORE_URL="http://10.140.0.3:11626"
+FRIENDBOT_SECRET=
+PORT=8000
+SENTRY_DSN=
+LOGGLY_TOKEN=
+PER_HOUR_RATE_LIMIT=72000
+INGEST=true
+NETWORK_PASSPHRASE="Oasis-Testnet.March-2018"
+# ingestion is currently only supported on 1 Horizon instance

@@ -18,7 +18,7 @@ UNSAFE_QUORUM=true
 #FAILURE_SAFETY is minimum number of nodes that are allowed to fail before you no longer have quorum
 FAILURE_SAFETY=1
 
-CATCHUP_RECENT=60480
+CATCHUP_RECENT=10800
 
 NETWORK_PASSPHRASE="<!NETWORK_NAME>"
 
@@ -43,4 +43,4 @@ VALIDATORS=[
 
 [HISTORY.gcloud]
 get="/bin/bash gsutil cp gs://<!HISTORY_ARCHIVE>/v1/{0} {1}"
-put="/bin/bash gsutil cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"
+#put="/bin/bash gsutil cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"
