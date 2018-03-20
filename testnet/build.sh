@@ -5,6 +5,7 @@
 rm -f template/*
 rm -f scripts/*
 rm -f deploy.sh
+rm -f patdh.sh
 
 cp src/network.jinja.template template/network.jinja
 cp src/network.yaml.template template/network.yaml
@@ -17,11 +18,13 @@ cp src/gce-horizon-ha.jinja.template template/gce-horizon-ha.jinja
 cp src/gce-horizon-ha.yaml.template template/gce-horizon-ha.yaml
 
 cp src/deploy.sh.template deploy.sh
+cp src/patch.sh.template patch.sh
+cp src/start-validator.sh.template scripts/start-validator.sh
 cp src/core-validator.cfg.template scripts/core-validator.cfg
 cp src/core-watcher.cfg.template scripts/core-watcher.cfg
 cp src/stellar-horizon-ingest.cfg.template scripts/stellar-horizon-ingest.cfg
 cp src/stellar-horizon-ha.cfg.template scripts/stellar-horizon-ha.cfg
-cp src/cloudsql.json scripts/cloudsql.json
+#cp src/cloudsql.json scripts/cloudsql.json
 
 sed -i 's/<!GCP_PROJECT_NAME>/'"$GCP_PROJECT_NAME"'/g' deploy.sh
 
@@ -102,6 +105,3 @@ sed -i 's/<!DEPLOYMENT_SCRIPTS>/'"$DEPLOYMENT_SCRIPTS"'/g' template/gce-horizon-
 sed -i 's/<!CH_MACHINE_TYPE>/'"$CH_MACHINE_TYPE"'/g' template/gce-horizon-ha.yaml
 
 
-gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
-
-gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE

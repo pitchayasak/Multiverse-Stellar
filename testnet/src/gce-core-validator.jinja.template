@@ -62,6 +62,7 @@ resources:
           sudo systemctl start stellar-core
           sudo rm -rf /tmp/core-validator*.cfg
           sudo rm -rf /tmp/core-newdb.sql
+          sudo rm -rf /tmp/start-validator.sh
           {% if index > 1 %}
           sudo rm -rf /etc/stellar/*.log
           {% endif %}
