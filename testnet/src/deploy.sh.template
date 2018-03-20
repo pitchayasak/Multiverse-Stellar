@@ -2,21 +2,21 @@
 
 . config.ini
 
-# gcloud iam service-accounts create history-archive --display-name "history-archive"  --project <!GCP_PROJECT_NAME>
+gcloud iam service-accounts create history-archive --display-name "history-archive"  --project <!GCP_PROJECT_NAME>
 
-# gcloud projects add-iam-policy-binding oasis-p \
-#     --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
-#     --role='roles/storage.objectCreator'
+gcloud projects add-iam-policy-binding oasis-p \
+    --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
+    --role='roles/storage.objectCreator'
 
-# gcloud projects add-iam-policy-binding oasis-p \
-#     --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
-#     --role='roles/storage.objectViewer'
+gcloud projects add-iam-policy-binding oasis-p \
+    --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
+    --role='roles/storage.objectViewer'
 
-# Create Cloud Storage for keep history of Stellar Network.
-# gsutil mb -c multi-regional -l asia -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-history-archives
+Create Cloud Storage for keep history of Stellar Network.
+gsutil mb -c multi-regional -l asia -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-history-archives
 
-# Create Cloud Storage for keep deployment scripts.
-# gsutil mb -c regional -l asia-southeast1 -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-deployment
+Create Cloud Storage for keep deployment scripts.
+gsutil mb -c regional -l asia-southeast1 -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-deployment
 
 gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
 
@@ -28,8 +28,8 @@ sleep 3s
 
 gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project <!GCP_PROJECT_NAME>
 
-# sleep 3s
+sleep 3s
 
 # gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project <!GCP_PROJECT_NAME>
 
-#gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project <!GCP_PROJECT_NAME>
+# gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project <!GCP_PROJECT_NAME>

@@ -5,7 +5,7 @@
 rm -f template/*
 rm -f scripts/*
 rm -f deploy.sh
-rm -f patdh.sh
+rm -f patch.sh
 
 cp src/network.jinja.template template/network.jinja
 cp src/network.yaml.template template/network.yaml
