@@ -27,7 +27,7 @@ The template files is .yaml and .jinja in the template folders, you are supposed
 ## <a id="core-validator"></a>Install Stellar Core Validator
 Aside from having an Google Cloud account, You must create empty project first.
 
-* `cp config.ini.template config.ini` *(Edit config file with your parameters. Even no editing config.ini file. It's can be create Private Stellar Network from default.)*
+* `cp config.ini.template config.ini` *(Edit config file with your parameters. **GCP_PROJEC_NAME** must be change to your current GCP project name)*
 * `./build.sh` 
 * `./deploy.sh`
 
