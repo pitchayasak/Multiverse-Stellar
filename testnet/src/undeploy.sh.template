@@ -2,9 +2,9 @@
 
 . config.ini
 
-gsutil rb -f gs://$HISTORY_ARCHIVE
+gsutil -m rm -rfa gs://$HISTORY_ARCHIVE
 
-gsutil rb -f gs://$DEPLOYMENT_SCRIPTS
+gsutil -m rm -rfa gs://$DEPLOYMENT_SCRIPTS
 
 gcloud iam service-accounts delete history-archive@$GCP_PROJECT_NAME.iam.gserviceaccount.com --project $GCP_PROJECT_NAME -q
 
