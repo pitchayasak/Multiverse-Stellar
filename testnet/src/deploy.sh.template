@@ -13,14 +13,16 @@ gcloud projects add-iam-policy-binding $GCP_PROJECT_NAME \
     --role='roles/storage.objectViewer'
 
 # Create Cloud Storage for keep history of Stellar Network.
-gsutil mb -c multi_regional -l asia -p $GCP_PROJECT_NAME gs://$GCP_PROJECT_NAME-history-archives
+gsutil mb -c multi_regional -l asia -p $GCP_PROJECT_NAME gs://$HISTORY_ARCHIVE
 
 # Create Cloud Storage for keep deployment scripts.
-gsutil mb -c regional -l asia-southeast1 -p $GCP_PROJECT_NAME gs://$GCP_PROJECT_NAME-deployment
+gsutil mb -c regional -l asia-southeast1 -p $GCP_PROJECT_NAME gs://$DEPLOYMENT_SCRIPTS
 
 gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
 
 gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
+
+gsutil acl ch -u $GCE_SERVICE_ACCOUNT:R gs://$DEPLOYMENT_SCRIPTS
 
 sleep 5s
 
