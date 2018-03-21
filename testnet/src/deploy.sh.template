@@ -20,9 +20,9 @@ gsutil mb -c regional -l asia-southeast1 -p $GCP_PROJECT_NAME gs://$DEPLOYMENT_S
 
 gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
 
-gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
+gsutil acl ch -R -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
 
-gsutil acl ch -u $GCE_SERVICE_ACCOUNT:R gs://$DEPLOYMENT_SCRIPTS
+gsutil acl ch -R -u $GCE_SERVICE_ACCOUNT:R gs://$DEPLOYMENT_SCRIPTS
 
 sleep 5s
 
