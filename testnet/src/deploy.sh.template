@@ -2,34 +2,34 @@
 
 . config.ini
 
-gcloud iam service-accounts create history-archive --display-name "history-archive"  --project <!GCP_PROJECT_NAME>
+gcloud iam service-accounts create history-archive --display-name "history-archive" --project $GCP_PROJECT_NAME
 
-gcloud projects add-iam-policy-binding oasis-p \
-    --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
+gcloud projects add-iam-policy-binding $GCP_PROJECT_NAME \
+    --member='serviceAccount:history-archive@$GCP_PROJECT_NAME.iam.gserviceaccount.com' \
     --role='roles/storage.objectCreator'
 
-gcloud projects add-iam-policy-binding oasis-p \
-    --member='serviceAccount:history-archive@<!GCP_PROJECT_NAME>.iam.gserviceaccount.com' \
+gcloud projects add-iam-policy-binding $GCP_PROJECT_NAME \
+    --member='serviceAccount:history-archive@$GCP_PROJECT_NAME.iam.gserviceaccount.com' \
     --role='roles/storage.objectViewer'
 
 # Create Cloud Storage for keep history of Stellar Network.
-gsutil mb -c multi-regional -l asia -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-history-archives
+gsutil mb -c multi_regional -l asia -p $GCP_PROJECT_NAME gs://$GCP_PROJECT_NAME-history-archives
 
 # Create Cloud Storage for keep deployment scripts.
-gsutil mb -c regional -l asia-southeast1 -p <!GCP_PROJECT_NAME> gs://<!GCP_PROJECT_NAME>-deployment
+gsutil mb -c regional -l asia-southeast1 -p $GCP_PROJECT_NAME gs://$GCP_PROJECT_NAME-deployment
 
 gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
 
 gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
 
-gcloud deployment-manager deployments create myproject-network --config template/network.yaml --project <!GCP_PROJECT_NAME>
+gcloud deployment-manager deployments create $GCP_PROJECT_NAME-net --config template/network.yaml --project $GCP_PROJECT_NAME
 
 sleep 3s
 
-gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project <!GCP_PROJECT_NAME>
+gcloud deployment-manager deployments create core-validator --config template/gce-core-validator.yaml --project $GCP_PROJECT_NAME
 
 sleep 3s
 
-# gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project <!GCP_PROJECT_NAME>
+# gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project $GCP_PROJECT_NAME
 
-# gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project <!GCP_PROJECT_NAME>
+# gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project $GCP_PROJECT_NAME

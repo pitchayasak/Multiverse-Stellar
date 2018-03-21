@@ -28,8 +28,6 @@ cp src/stellar-horizon-ingest.cfg.template scripts/stellar-horizon-ingest.cfg
 cp src/stellar-horizon-ha.cfg.template scripts/stellar-horizon-ha.cfg
 #cp src/cloudsql.json scripts/cloudsql.json
 
-sed -i 's/<!GCP_PROJECT_NAME>/'"$GCP_PROJECT_NAME"'/g' deploy.sh
-
 sed -i 's/<!GCP_PROJECT_NAME>/'"$GCP_PROJECT_NAME"'/g' scripts/core-validator.cfg
 sed -i 's/<!CORE_VALIDATOR_PUBKEY_1>/'"$CORE_VALIDATOR_PUBKEY_1"'/g' scripts/core-validator.cfg
 sed -i 's/<!CORE_VALIDATOR_PUBKEY_2>/'"$CORE_VALIDATOR_PUBKEY_2"'/g' scripts/core-validator.cfg
