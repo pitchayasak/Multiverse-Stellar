@@ -6,6 +6,7 @@ rm -f template/*
 rm -f scripts/*
 rm -f deploy.sh
 rm -f patch.sh
+rm -f undeploy.sh
 
 cp src/network.jinja.template template/network.jinja
 cp src/network.yaml.template template/network.yaml
@@ -19,6 +20,7 @@ cp src/gce-horizon-ha.yaml.template template/gce-horizon-ha.yaml
 
 cp src/deploy.sh.template deploy.sh
 cp src/patch.sh.template patch.sh
+cp src/undeploy.sh.template undeploy.sh
 cp src/start-validator.sh.template scripts/start-validator.sh
 cp src/core-validator.cfg.template scripts/core-validator.cfg
 cp src/core-watcher.cfg.template scripts/core-watcher.cfg

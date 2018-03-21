@@ -1,5 +1,6 @@
 .README.md.swp
 deploy.sh
+patch.sh
 config.ini
 # Except this file
 !.gitignore
