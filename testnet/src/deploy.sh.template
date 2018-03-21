@@ -5,11 +5,11 @@
 gcloud iam service-accounts create history-archive --display-name "history-archive" --project $GCP_PROJECT_NAME
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_NAME \
-    --member='serviceAccount:history-archive@$GCP_PROJECT_NAME.iam.gserviceaccount.com' \
+    --member='serviceAccount:history-archive@'$GCP_PROJECT_NAME'.iam.gserviceaccount.com' \
     --role='roles/storage.objectCreator'
 
 gcloud projects add-iam-policy-binding $GCP_PROJECT_NAME \
-    --member='serviceAccount:history-archive@$GCP_PROJECT_NAME.iam.gserviceaccount.com' \
+    --member='serviceAccount:history-archive@'$GCP_PROJECT_NAME'.iam.gserviceaccount.com' \
     --role='roles/storage.objectViewer'
 
 # Create Cloud Storage for keep history of Stellar Network.
@@ -21,6 +21,8 @@ gsutil mb -c regional -l asia-southeast1 -p $GCP_PROJECT_NAME gs://$GCP_PROJECT_
 gsutil -m cp scripts/* gs://$DEPLOYMENT_SCRIPTS
 
 gsutil acl ch -u $GCE_SERVICE_ACCOUNT:W gs://$HISTORY_ARCHIVE
+
+sleep 5s
 
 gcloud deployment-manager deployments create $GCP_PROJECT_NAME-net --config template/network.yaml --project $GCP_PROJECT_NAME
 

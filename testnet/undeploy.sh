@@ -22,6 +22,6 @@ gcloud deployment-manager deployments delete $GCP_PROJECT_NAME-net --project $GC
 
 
 
-# gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project oasis-p
+# gcloud deployment-manager deployments create core-horizon --config template/gce-core-horizon.yaml --project $GCP_PROJECT_NAME
 
-# gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project oasis-p
+# gcloud deployment-manager deployments create horizon-ha --config template/gce-horizon-ha.yaml --project $GCP_PROJECT_NAME
