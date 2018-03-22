@@ -22,6 +22,7 @@ cp src/deploy.sh.template deploy.sh
 cp src/patch.sh.template patch.sh
 cp src/undeploy.sh.template undeploy.sh
 cp src/start-validator.sh.template scripts/start-validator.sh
+cp src/start-core-horizon.sh.template scripts/start-core-horizon.sh
 cp src/core-validator.cfg.template scripts/core-validator.cfg
 cp src/core-watcher.cfg.template scripts/core-watcher.cfg
 cp src/stellar-horizon-ingest.cfg.template scripts/stellar-horizon-ingest.cfg

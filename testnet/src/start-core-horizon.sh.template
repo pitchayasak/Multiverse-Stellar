@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd /etc/stellar
+
+sudo chown -R stellar:stellar /opt/stellar
+
+sudo stellar-core --forcescp
+
+sleep 30s
+
+sudo systemctl restart stellar-core
+
+sleep 5s
+
+sudo systemctl restart stellar-horizon

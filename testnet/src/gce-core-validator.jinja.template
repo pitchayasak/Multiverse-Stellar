@@ -40,7 +40,7 @@ resources:
           sudo chmod 777 -R /opt/stellar
           sudo apt-get update -y
           sudo apt-get install -y postgresql postgresql-contrib
-          sleep 3
+          sleep 3s
           cd /etc/stellar
           sudo gsutil cp gs://{{ properties['gcs-deployment-buckets'] }}/* /tmp
           echo "ALTER USER {{ properties['psql-username'] }} WITH PASSWORD '{{ properties['psql-password'] }}';" >> /tmp/core-newdb.sql

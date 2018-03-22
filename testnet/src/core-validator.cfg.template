@@ -40,5 +40,5 @@ VALIDATORS=[
 ]
 
 [HISTORY.gcloud]
-get="/bin/bash gsutil cp gs://<!HISTORY_ARCHIVE>/v1/{0} {1}"
-put="/bin/bash gsutil cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"
+get="/bin/bash gsutil -m cp gs://<!HISTORY_ARCHIVE>/v1/{0} {1}"
+put="/bin/bash gsutil -m cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"
