@@ -5,8 +5,7 @@ This is CLOUD DEPLOYMENT MANAGER template for creating and running Stellar Core 
 Stellar-core and PostgreSQL are all running in the same GCE on difference zone.
 
 **Installation documents**
-1. [Install Stellar Core Validator](#core-validator)
-2. [Install Stellar Core watcher and Horizon](core-horizon-ingest.md)
+[Install Stellar Core Validator](#core-validator)
 
 **Ref:**<br>
 [Stellar Docs](https://www.stellar.org/developers/stellar-core/software/admin.html)<br>
@@ -73,6 +72,11 @@ The installation scripts will delete all log files on all stellar-core instance 
 ![](images/root_secret.png)
 
 ** *Remove log contains Root account secret key when done.*
+
+---
+#### Uninstall
+
+* `./undeploy.sh`
 
 ---
 ## Notes<br>
