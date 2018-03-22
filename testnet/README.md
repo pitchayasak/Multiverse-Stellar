@@ -4,7 +4,7 @@ This is CLOUD DEPLOYMENT MANAGER template for creating and running Stellar Core 
 
 Stellar-core and PostgreSQL are all running in the same GCE on difference zone.
 
-**Installation documents**
+**Installation documents**  
 [Install Stellar Core Validator](#core-validator)
 
 **Ref:**<br>
