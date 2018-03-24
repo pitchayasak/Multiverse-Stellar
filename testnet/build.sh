@@ -21,6 +21,8 @@ cp src/gce-horizon-ha.yaml.template template/gce-horizon-ha.yaml
 cp src/deploy.sh.template deploy.sh
 cp src/patch.sh.template patch.sh
 cp src/undeploy.sh.template undeploy.sh
+cp src/stellar-core.service.template scripts/stellar-core.service
+cp src/stellar-horizon.service.template scripts/stellar-horizon.service
 cp src/start-validator.sh.template scripts/start-validator.sh
 cp src/start-core-horizon.sh.template scripts/start-core-horizon.sh
 cp src/core-validator.cfg.template scripts/core-validator.cfg

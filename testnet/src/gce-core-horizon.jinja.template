@@ -50,6 +50,12 @@ resources:
           sudo -i -u postgres bash -c 'createdb {{ properties['psql-core-dbname'] }} && createdb {{ properties['psql-horizon-dbname'] }} && createuser {{ properties['psql-username'] }} && psql {{ properties['psql-dbname'] }} -f /tmp/ch-newdb.sql'
           sudo cp /tmp/core-watcher.cfg /etc/stellar/stellar-core.cfg
           sudo cp /tmp/stellar-horizon-ingest.cfg /etc/default/stellar-horizon
+          sudo cp /tmp/stellar-core.service /lib/systemd/system/
+          sudo cp /tmp/stellar-horizon.service /lib/systemd/system/
+          sudo chmod 644 /lib/systemd/system/stellar-core.service
+          sudo chown root:root /lib/systemd/system/stellar-core.service
+          sudo chmod 644 /lib/systemd/system/stellar-horizon.service
+          sudo chown root:root /lib/systemd/system/stellar-horizon.service
           sudo sed -i 's/<!HISTORY_ARCHIVE>/{{ properties['history-archive'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/stellar/stellar-core.cfg
@@ -69,5 +75,6 @@ resources:
           sudo rm -rf /tmp/core-*.cfg
           sudo rm -rf /tmp/ch-newdb.sql
           sudo rm -rf /etc/stellar/*.log
-
+          sudo rm -rf /tmp/stellar-core.service
+          sudo rm -rf /tmp/stellar-horizon.service
 

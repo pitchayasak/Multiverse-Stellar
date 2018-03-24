@@ -10,7 +10,7 @@ gcloud iam service-accounts delete history-archive@$GCP_PROJECT_NAME.iam.gservic
 
 sleep 3s
 
-gcloud deployment-manager deployments delete core-horizon --project $GCP_PROJECT_NAME
+gcloud deployment-manager deployments delete core-horizon --project $GCP_PROJECT_NAME -q
 
 sleep 3s
 

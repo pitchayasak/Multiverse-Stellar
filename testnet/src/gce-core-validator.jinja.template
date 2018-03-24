@@ -47,6 +47,9 @@ resources:
           echo "grant all privileges on database {{ properties['psql-dbname'] }} to {{ properties['psql-username'] }};" >> /tmp/core-newdb.sql
           sudo -i -u postgres bash -c 'createdb {{ properties['psql-dbname'] }} && createuser {{ properties['psql-username'] }} && psql {{ properties['psql-dbname'] }} -f /tmp/core-newdb.sql'
           sudo cp /tmp/core-validator.cfg /etc/stellar/stellar-core.cfg
+          sudo cp /tmp/stellar-core.service /lib/systemd/system/
+          sudo chmod 644 /lib/systemd/system/stellar-core.service
+          sudo chown root:root /lib/systemd/system/stellar-core.service
           sudo sed -i 's/<!HISTORY_ARCHIVE>/{{ properties['history-archive'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!NODE_SEED>/{{ properties['core-validator-key-'+index|string] }}/g' /etc/stellar/stellar-core.cfg
@@ -63,6 +66,7 @@ resources:
           sudo rm -rf /tmp/core-validator*.cfg
           sudo rm -rf /tmp/core-newdb.sql
           sudo rm -rf /tmp/start-validator.sh
+          sudo rm -rf /tmp/stellar-core.service
           {% if index > 1 %}
           sudo rm -rf /etc/stellar/*.log
           {% endif %}

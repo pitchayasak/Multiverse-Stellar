@@ -1,0 +1,18 @@
+[Unit]
+Description=SDF - stellar-core
+After=postgresql.service
+Before=multi-user.target
+#PartOf=stellar.service
+
+[Service]
+User=stellar
+Group=stellar
+ExecStart=/usr/bin/stellar-core --conf /etc/stellar/stellar-core.cfg --base64
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

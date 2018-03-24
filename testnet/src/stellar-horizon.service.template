@@ -1,0 +1,23 @@
+[Unit]
+Description=SDF - stellar-horizon
+After=postgresql.service
+Before=multi-user.target
+#PartOf=stellar.service
+
+[Service]
+User=stellar
+Group=stellar
+LimitNOFILE=8192
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=stellar-horizon
+EnvironmentFile=/etc/default/stellar-horizon
+ExecStart=/usr/bin/stellar-horizon
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
