@@ -18,6 +18,7 @@ resources:
       initializeParams:
         diskName: {{ NAME_PREFIX }}-disk
         sourceImage: {{ properties['image'] }}
+        diskSizeGb: 50
     networkInterfaces:
     - network: {{ properties['gcp-network'] }}
       # Access Config required to give the instance a public IP address
@@ -64,7 +65,7 @@ resources:
           sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/default/stellar-horizon
           sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
           sudo mkdir -p /opt/stellar-core/history/v1
-          sudo chown -R stellar:stlelar /opt/stellar-core
+          sudo chown -R stellar:stellar /opt/stellar-core
           cd /etc/stellar
           sudo stellar-core --newdb --forcescp
           sudo chown -R stellar:stellar /opt/stellar          
