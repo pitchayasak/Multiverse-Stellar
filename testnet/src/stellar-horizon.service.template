@@ -1,6 +1,6 @@
 [Unit]
 Description=SDF - stellar-horizon
-After=postgresql.service
+After=stellar-core.service
 Before=multi-user.target
 #PartOf=stellar.service
 
