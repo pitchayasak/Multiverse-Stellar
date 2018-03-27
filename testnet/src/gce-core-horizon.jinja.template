@@ -69,10 +69,11 @@ resources:
           cd /etc/stellar
           sudo stellar-core --newdb --forcescp
           sudo chown -R stellar:stellar /opt/stellar          
-          sudo systemctl start stellar-core
+          sudo systemctl restart stellar-core
+          sleep 5s
           export DATABASE_URL="postgres://{{ properties['psql-username'] }}:{{ properties['psql-password'] }}@localhost/horizon?sslmode=disable"
           stellar-horizon db init
-          sudo systemctl start stellar-horizon
+          sudo systemctl restart stellar-horizon
           sudo rm -rf /tmp/core-*.cfg
           sudo rm -rf /tmp/ch-newdb.sql
           sudo rm -rf /etc/stellar/*.log
