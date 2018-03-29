@@ -53,6 +53,7 @@ resources:
           sudo cp /tmp/stellar-horizon-ingest.cfg /etc/default/stellar-horizon
           sudo cp /tmp/stellar-core.service /lib/systemd/system/
           sudo cp /tmp/stellar-horizon.service /lib/systemd/system/
+          sudo systemctl daemon-reload
           sudo chmod 644 /lib/systemd/system/stellar-core.service
           sudo chown root:root /lib/systemd/system/stellar-core.service
           sudo chmod 644 /lib/systemd/system/stellar-horizon.service

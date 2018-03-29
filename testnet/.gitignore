@@ -1,6 +1,7 @@
 .README.md.swp
 deploy.sh
 patch.sh
+undeploy.sh
 config.ini
 # Except this file
 !.gitignore
