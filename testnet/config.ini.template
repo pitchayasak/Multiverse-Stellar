@@ -4,7 +4,7 @@
 GCP_PROJECT_NAME="stellar-testnet"
 
 # Google Cloud service account that allow to access GCS buckets
-GCE_SERVICE_ACCOUNT="history-archive@stellar-testnet.iam.gserviceaccount.com"
+GCE_SERVICE_ACCOUNT="history-archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com"
 
 # Google Cloud Network name will be create during setup
 GCP_NETWORK_NAME="network-1"
@@ -61,6 +61,6 @@ CH_PSQL_HORIZON_DBNAME="horizon"
 CH_PSQL_USERNAME="stellaradmin"
 CH_PSQL_PASSWORD="admin123"
 
-CH_GCE_SERVICE_ACCOUNT="core-horizon@stellar-testnet.iam.gserviceaccount.com"
+CH_GCE_SERVICE_ACCOUNT="hostory_archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com"
 CLOUD_SQL_INSTANCE="stellar-testnet:asia-east1:horizon-db-1"
 

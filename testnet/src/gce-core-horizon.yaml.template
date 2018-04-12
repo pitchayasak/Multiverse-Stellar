@@ -31,6 +31,6 @@ resources:
     history-archive : <!HISTORY_ARCHIVE>
     gcs-deployment-buckets : <!DEPLOYMENT_SCRIPTS>
     machineType: <!CH_MACHINE_TYPE>
-    image : https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20180126
+    image : https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20180405
     hasExternalIp: false
     gcp-network : https://www.googleapis.com/compute/v1/projects/<!GCP_PROJECT_NAME>/global/networks/<!GCP_NETWORK_NAME>
