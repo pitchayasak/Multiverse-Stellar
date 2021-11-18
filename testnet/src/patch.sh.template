@@ -5,24 +5,24 @@
 echo `date +"%Y-%m-%d"`" Begin remove installation scripts."
 echo " "
 
-gcloud compute instances remove-metadata core-validator-1 --keys=startup-script --project `echo $GCP_PROJECT_NAME`
-gcloud compute instances remove-metadata core-validator-2 --keys=startup-script --project `echo $GCP_PROJECT_NAME`
-gcloud compute instances remove-metadata core-validator-3 --keys=startup-script --project `echo $GCP_PROJECT_NAME`
-gcloud compute instances remove-metadata core-horizon --keys=startup-script --project `echo $GCP_PROJECT_NAME`
+gcloud compute instances remove-metadata core-validator-1 --keys=startup-script --project `echo $GCP_PROJECT_NAME` --zone `echo $CORE_ZONE_1`
+gcloud compute instances remove-metadata core-validator-2 --keys=startup-script --project `echo $GCP_PROJECT_NAME` --zone `echo $CORE_ZONE_2`
+gcloud compute instances remove-metadata core-validator-3 --keys=startup-script --project `echo $GCP_PROJECT_NAME` --zone `echo $CORE_ZONE_3`
+gcloud compute instances remove-metadata core-horizon --keys=startup-script --project `echo $GCP_PROJECT_NAME` --zone `echo $CORE_HORIZON_ZONE_1`
 
 echo " "
 echo `date +"%Y-%m-%d"`" Begin update startup scripts."
 gcloud compute instances add-metadata core-validator-1 \
-    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-validator.sh
+    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-validator.sh --zone `echo $CORE_ZONE_1`
 
 gcloud compute instances add-metadata core-validator-2 \
-    --metadata startup-script-url=gs://`echo $iDEPLOYMENT_SCRIPTS`/start-validator.sh
+    --metadata startup-script-url=gs://`echo $iDEPLOYMENT_SCRIPTS`/start-validator.sh --zone `echo $CORE_ZONE_2`
 
 gcloud compute instances add-metadata core-validator-3 \
-    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-validator.sh
+    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-validator.sh --zone `echo $CORE_ZONE_3`
 
 gcloud compute instances add-metadata core-horizon \
-    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-core-horizon.sh
+    --metadata startup-script-url=gs://`echo $DEPLOYMENT_SCRIPTS`/start-core-horizon.sh --zone `echo $CORE_HORIZON_ZONE_1`
 
 echo " "
 echo `date +"%Y-%m-%d"`" Finish update startup scripts."

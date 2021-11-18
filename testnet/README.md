@@ -63,11 +63,11 @@ Please make sure all Stellar Core instance are run to creating ledger with state
 
 ---
 #### Collect the Root account secret key
-when stellar-core start to create new database will be log at path /etc/stellar.<br>
+when stellar-core start to create new database will be log at path /opt/stellar/logs.<br>
 Look at the stellar-core.*.log file for information.<br>
-The installation scripts will delete all log files on all stellar-core instance **except core-validater-1** for you to ssh into instance and get information and remove log file to secure Root account secre key.<br>
+The installation scripts will delete all log files on all stellar-core instance **except core-validater-1** for you to ssh into instance and get information and remove log file to secure Root account secret key.<br>
 
-* `cd /etc/stellar`
+* `cd /opt/stellar/logs`
 * `cat stellar-core.*.log`  
 ![](images/root_secret.png)
 
@@ -77,8 +77,4 @@ The installation scripts will delete all log files on all stellar-core instance 
 #### Uninstall
 
 * `./undeploy.sh`
-
----
-## Notes<br>
-* If you have any question please send email to **pitchayasak.s@gmail.com**
 

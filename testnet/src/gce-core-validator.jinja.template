@@ -34,7 +34,8 @@ resources:
         value: |
           #!/bin/bash
           wget -qO - https://apt.stellar.org/SDF.asc | sudo apt-key add -
-          echo "deb https://apt.stellar.org/public stable/" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          echo "deb https://apt.stellar.org bionic stable" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          sudo systemctl mask stellar-core
           sudo apt-get update -y && sudo apt-get install  -y stellar-core
           sudo mkdir /opt/stellar
           sudo chmod 777 -R /opt/stellar
@@ -57,11 +58,14 @@ resources:
           sudo sed -i 's/<!PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
           sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
           cd /etc/stellar
-          sudo stellar-core --newdb --forcescp
           sudo chown -R stellar:stellar /opt/stellar
+          sudo -u stellar mkdir /opt/stellar/logs
+          sudo -u stellar stellar-core --conf /etc/stellar/stellar-core.cfg new-db
           {% if index == 1 %}
-          sudo stellar-core --newhist gcloud
+          sudo -u stellar stellar-core --conf /etc/stellar/stellar-core.cfg new-hist gcloud
           {% endif %}
+          sudo systemctl daemon-reload
+          sudo systemctl unmask stellar-core
           sudo systemctl start stellar-core
           sudo rm -rf /tmp/core-validator*.cfg
           sudo rm -rf /tmp/core-newdb.sql
@@ -69,6 +73,6 @@ resources:
           sudo rm -rf /tmp/stellar-core.service
           sudo stellar-core-cmd "ll?level=WARNING"
           {% if index > 1 %}
-          sudo rm -rf /etc/stellar/*.log
+          sudo rm -rf /opt/stellar/logs/*.log
           {% endif %}
 {% endfor %}

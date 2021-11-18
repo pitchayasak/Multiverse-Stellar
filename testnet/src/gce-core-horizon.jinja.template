@@ -35,9 +35,11 @@ resources:
         value: |
           #!/bin/bash
           wget -qO - https://apt.stellar.org/SDF.asc | sudo apt-key add -
-          echo "deb https://apt.stellar.org/public stable/" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          echo "deb https://apt.stellar.org bionic stable" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          sudo systemctl mask stellar-core
           sudo apt-get update -y && sudo apt-get install -y stellar-core
           sudo apt-get install -y stellar-horizon
+          sudo apt-get install -y nginx
           sudo mkdir /opt/stellar
           sudo chmod 777 -R /opt/stellar
           sudo apt-get update -y
@@ -53,6 +55,7 @@ resources:
           sudo cp /tmp/stellar-horizon-ingest.cfg /etc/default/stellar-horizon
           sudo cp /tmp/stellar-core.service /lib/systemd/system/
           sudo cp /tmp/stellar-horizon.service /lib/systemd/system/
+          sudo cp /tmp/nginx-default /etc/nginx/sites-available/default
           sudo systemctl daemon-reload
           sudo chmod 644 /lib/systemd/system/stellar-core.service
           sudo chown root:root /lib/systemd/system/stellar-core.service
@@ -64,13 +67,23 @@ resources:
           sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/stellar/stellar-core.cfg
           sudo sed -i 's/<!CH_PSQL_USERNAME>/{{ properties['psql-username'] }}/g' /etc/default/stellar-horizon
           sudo sed -i 's/<!CH_PSQL_PASSWORD>/{{ properties['psql-password'] }}/g' /etc/default/stellar-horizon
+          sudo sed -i 's/<!NETWORK_NAME>/{{ properties['stellar-network-name'] }}/g' /etc/default/stellar-horizon
           sudo chown -R stellar:stellar /etc/stellar/stellar-core.cfg
-          sudo mkdir -p /opt/stellar-core/history/v1
-          sudo chown -R stellar:stellar /opt/stellar-core
+          sudo mkdir -p /opt/stellar/history/v1
+          sudo chown -R stellar:stellar /opt/stellar
+          sudo -u stellar mkdir /opt/stellar/logs
           cd /etc/stellar
-          sudo stellar-core --newdb --forcescp
-          sudo chown -R stellar:stellar /opt/stellar          
+          sudo -u stellar stellar-core --conf /etc/stellar/stellar-core.cfg new-db
+          sudo chown -R stellar:stellar /opt/stellar
+          sudo systemctl daemon-reload
+          sudo systemctl unmask stellar-core
           sudo systemctl restart stellar-core
+          sleep 30s
+          cd /opt/stellar/history/v1
+          sudo gsutil -m cp -r gs://{{ properties['history-archive'] }}/v1/bucket .
+          sudo chown -R stellar:stellar bucket
+          sudo nginx -t
+          sudo systemctl restart nginx
           sleep 5s
           export DATABASE_URL="postgres://{{ properties['psql-username'] }}:{{ properties['psql-password'] }}@localhost/horizon?sslmode=disable"
           stellar-horizon db init

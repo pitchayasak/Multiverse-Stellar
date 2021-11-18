@@ -4,7 +4,7 @@ cd /etc/stellar
 
 sudo chown -R stellar:stellar /opt/stellar
 
-sudo stellar-core --forcescp
+sudo stellar-core force-scp
 
 sleep 30s
 

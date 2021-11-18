@@ -9,6 +9,7 @@ NODE_SEED="<!NODE_SEED>" # remove this if you are non-validating
 NODE_IS_VALIDATOR=true
 
 BUCKET_DIR_PATH="/opt/stellar/buckets"
+LOG_FILE_PATH="/opt/stellar/logs/stellar-core-{datetime:%Y-%m-%d_%H-%M-%S}.log"
 
 DATABASE="postgresql://dbname=core host=localhost user=<!PSQL_USERNAME> password=<!PSQL_PASSWORD>"
 
@@ -28,9 +29,9 @@ NODE_NAMES=[
 ]
 
 KNOWN_PEERS=[
-"<!CORE_VAL_NAME_PREFIX>-1.c.<!GCP_PROJECT_NAME>.internal",
-"<!CORE_VAL_NAME_PREFIX>-2.c.<!GCP_PROJECT_NAME>.internal",
-"<!CORE_VAL_NAME_PREFIX>-3.c.<!GCP_PROJECT_NAME>.internal"
+"<!CORE_VAL_NAME_PREFIX>-1.<!CORE_ZONE_1>.c.<!GCP_PROJECT_NAME>.internal",
+"<!CORE_VAL_NAME_PREFIX>-2.<!CORE_ZONE_2>.c.<!GCP_PROJECT_NAME>.internal",
+"<!CORE_VAL_NAME_PREFIX>-3.<!CORE_ZONE_3>.c.<!GCP_PROJECT_NAME>.internal"
 ]
 
 [QUORUM_SET]
@@ -40,5 +41,5 @@ VALIDATORS=[
 ]
 
 [HISTORY.gcloud]
-get="/bin/bash gsutil -m cp gs://<!HISTORY_ARCHIVE>/v1/{0} {1}"
-put="/bin/bash gsutil -m cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"
+get="gsutil -m cp gs://<!HISTORY_ARCHIVE>/v1/{0} {1}"
+put="gsutil -m cp {0} gs://<!HISTORY_ARCHIVE>/v1/{1}"

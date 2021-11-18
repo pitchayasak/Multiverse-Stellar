@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Google Cloud Project name
-GCP_PROJECT_NAME="stellar-testnet"
+GCP_PROJECT_NAME="<YOUR PROJECT ID>"
 
 # Google Cloud service account that allow to access GCS buckets
 GCE_SERVICE_ACCOUNT="history-archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com"
@@ -10,10 +10,10 @@ GCE_SERVICE_ACCOUNT="history-archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com
 GCP_NETWORK_NAME="network-1"
 
 # GCS Bucket name of history archive to keep history data of stellar network
-HISTORY_ARCHIVE="stellar-testnet-history-archives"
+HISTORY_ARCHIVE="<YOUR BUCKET NAME FOR HISTORY ARCHIVE>"
 
 # GCS Bucket name of deployments script
-DEPLOYMENT_SCRIPTS="stellar-testnet-deployment"
+DEPLOYMENT_SCRIPTS="<YOUR BUCKET NAME FOR DEPLOYMENT SCRIPTS>"
 
 # ======================================================================================
 # FOR Core Validator configuration =====================================================
@@ -22,7 +22,7 @@ DEPLOYMENT_SCRIPTS="stellar-testnet-deployment"
 # VM name to display for each instance
 CORE_VAL_NAME_PREFIX="core-validator"
 
-STELLAR_NETWORK_PASSPHRASE="My-Private-Stellar-Testnet.March-2018"
+STELLAR_NETWORK_PASSPHRASE="My-Private-Stellar-Testnet.March-2021"
 
 # Specific machine size and capacity
 MACHINE_TYPE="n1-standard-1"
@@ -49,7 +49,7 @@ PSQL_PASSWORD="testnetadmin"
 # ======================================================================================
 # VM name to display for each instance
 CH_NAME_PREFIX="core-horizon"
-CHH_NAME_PREFIX="horizon-ha"
+#CHH_NAME_PREFIX="horizon-ha"
 
 CORE_HORIZON_ZONE_1="asia-east1-c"
 
@@ -61,6 +61,6 @@ CH_PSQL_HORIZON_DBNAME="horizon"
 CH_PSQL_USERNAME="stellaradmin"
 CH_PSQL_PASSWORD="admin123"
 
-CH_GCE_SERVICE_ACCOUNT="hostory_archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com"
-CLOUD_SQL_INSTANCE="stellar-testnet:asia-east1:horizon-db-1"
+CH_GCE_SERVICE_ACCOUNT="history-archive@"$GCP_PROJECT_NAME".iam.gserviceaccount.com"
+#CLOUD_SQL_INSTANCE="stellar-testnet:asia-east1:horizon-db-1"
 

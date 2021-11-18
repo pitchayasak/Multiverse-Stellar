@@ -34,7 +34,7 @@ resources:
         value: |
           #!/bin/bash
           wget -qO - https://apt.stellar.org/SDF.asc | sudo apt-key add -
-          echo "deb https://apt.stellar.org/public stable/" | sudo tee -a /etc/apt/sources.list.d/SDF.list
+          echo "deb https://apt.stellar.org bionic stable" | sudo tee -a /etc/apt/sources.list.d/SDF.list
           sudo apt-get update -y && sudo apt-get install -y stellar-horizon
           sudo mkdir /opt/stellar
           sudo chmod 777 -R /opt/stellar
