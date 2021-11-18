@@ -82,6 +82,7 @@ resources:
           cd /opt/stellar/history/v1
           sudo gsutil -m cp -r gs://{{ properties['history-archive'] }}/v1/bucket .
           sudo chown -R stellar:stellar bucket
+          sudo chmod -R 755 bucket
           sudo nginx -t
           sudo systemctl restart nginx
           sleep 5s
